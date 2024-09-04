@@ -13,32 +13,28 @@ black_moth_percentage = int(100-white_moth_percentage)
 print("Black moth percentage: ", str(black_moth_percentage))
 input("I'm ready to start the simulation! Press enter to begin.\n")
 
-#variables
+#fixed variables
 if forest_color == "black":
-  white_death_rate = random.randint(20, 30) * 0.01
-  black_death_rate = random.randint(10, 20) * 0.01
+  white_survival_rate = random.randint(70, 80) * 0.01
+  black_survival_rate = random.randint(80, 90) * 0.01
 elif forest_color == "white":
-  black_death_rate = random.randint(20, 30) * 0.01
-  white_death_rate = random.randint(10, 20) * 0.01
-
+  black_survival_rate = random.randint(70, 80) * 0.01
+  white_survival_rate = random.randint(80, 90) * 0.01
+generation = 1
+mutation_rate = random.randint(0, 10) * 0.01
 reproduction_rate = random.randint(10, 50) * 0.01
 
-remaining_white_moths = int(white_moth_percentage - white_moth_percentage * white_death_rate)
-
-remaining_black_moths = int(black_moth_percentage - black_moth_percentage * black_death_rate)
-
-generation = 1
+# repeating variables
+remaining_white_moths = int(white_moth_percentage * white_survival_rate)
+remaining_black_moths = int(black_moth_percentage * black_survival_rate)
 
 #simulation
-
-def generation_simulator(forest_color, generation, white_moth_percentage, black_moth_percentage):
-  print("Generation", str(generation))
-  int("Forest color: ", forest_color)
-  print("Starting white moths: ", white_moth_percentage)
-  print("Starting black moths: ", black_moth_percentage)
+def simulation(starting_white_moths, starting_black_moths):  
+  print("GENERATION", generation)
+  print("Forest color: ", forest_color)
+  print("Starting white moths: ", starting_white_moths)
+  print("Starting black moths: ", starting_black_moths)
   print("Remaining white moths: ", remaining_white_moths)
   print("Remaining black moths: ", remaining_black_moths)
-  print("The reproduction rate is", reproduction_rate)
-  return 
 
-generation_simulator(forest_color, generation, white_moth_percentage, black_moth_percentage)
+simulation(white_moth_percentage, black_moth_percentage)
