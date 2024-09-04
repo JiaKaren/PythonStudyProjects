@@ -8,9 +8,9 @@ print("In the 1800s, pollution from industrial smoke and soot killed off lichens
 print("Now it's time for you to design an environment! Fill in the blanks to create your first generation of moths.")
 
 forest_color = input("Black or white forest? ")
-white_moth_percentage = int(input("White moth percentage (enter integer from 1 to 100): "))
-black_moth_percentage = int(100-white_moth_percentage)
-print("Black moth percentage: ", str(black_moth_percentage))
+starting_white_moths = int(input("White moth number (enter integer from 1 to 100): "))
+starting_black_moths = int(100-starting_white_moths)
+print("Black moth percentage: ", str(starting_black_moths))
 input("I'm ready to start the simulation! Press enter to begin.\n")
 
 #fixed variables
@@ -24,12 +24,11 @@ generation = 1
 mutation_rate = random.randint(0, 10) * 0.01
 reproduction_rate = random.randint(10, 50) * 0.01
 
-# repeating variables
-remaining_white_moths = int(white_moth_percentage * white_survival_rate)
-remaining_black_moths = int(black_moth_percentage * black_survival_rate)
+remaining_white_moths = int(starting_white_moths * white_survival_rate)
+remaining_black_moths = int(starting_black_moths * black_survival_rate)
 
 #simulation
-def simulation(starting_white_moths, starting_black_moths):  
+def simulation(starting_white_moths, starting_black_moths): 
   print("GENERATION", generation)
   print("Forest color: ", forest_color)
   print("Starting white moths: ", starting_white_moths)
@@ -37,4 +36,13 @@ def simulation(starting_white_moths, starting_black_moths):
   print("Remaining white moths: ", remaining_white_moths)
   print("Remaining black moths: ", remaining_black_moths)
 
-simulation(white_moth_percentage, black_moth_percentage)
+  return remaining_white_moths, remaining_black_moths
+
+# repeating generations
+while starting_white_moths != 0 or starting_black_moths != 0:
+  remaining_white_moths = int(starting_white_moths * white_survival_rate)
+  remaining_black_moths = int(starting_black_moths * black_survival_rate)
+  simulation(starting_white_moths, starting_black_moths)
+  starting_white_moths = remaining_white_moths
+  starting_black_moths = remaining_black_moths
+  generation += 1
